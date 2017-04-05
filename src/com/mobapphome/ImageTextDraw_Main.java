@@ -11,8 +11,8 @@ public class ImageTextDraw_Main {
 
     public static void main(String[] args) throws Exception {
         String inputDir = "imgs_sample";
-        String textToDraw = "KhazarApps";
-        int sizeOfFont = 25;
+        String textToDraw = "Image Decorator";
+        int sizeOfFont = 50;
         String colorRGBA = "#FFFFFF33";
         int angle = Integer.valueOf(0);
 
