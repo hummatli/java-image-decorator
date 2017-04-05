@@ -7,14 +7,15 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class ImageTextDraw {
+public class ImageTextDraw_Main {
 
     public static void main(String[] args) throws Exception {
-        String inputDir = args[0];
-        String textToDraw = args[1];
-        float sizeOfFont = Float.valueOf(args[2]);
-        String colorRGBA = args[3];
-        int angle = Integer.valueOf(args[4]);
+        String inputDir = "imgs_sample";
+        String textToDraw = "KhazarApps";
+        int sizeOfFont = 25;
+        String colorRGBA = "#FFFFFF33";
+        int angle = Integer.valueOf(0);
+
 
         String outputDir = inputDir + "/decorated";
 
@@ -54,34 +55,35 @@ public class ImageTextDraw {
 //                //image = resizeImage(orginalImage, orginalImage.getType(), width, height);
 //            }
 
-            //Increse size for good drawing
+            //Increase size for good drawing
             int increaseIndex = 6;
-            //if(orginalHeight < 500) {
-                width = orginalWidth *increaseIndex;
-                height = orginalHeight * increaseIndex;
-                image = resizeImageWithHint(orginalImage, orginalImage.getType(), width, height);
+            width = orginalWidth * increaseIndex;
+            height = orginalHeight * increaseIndex;
+            image = resizeImageWithHint(orginalImage, orginalImage.getType(), width, height);
 
-            //}
 
             Graphics2D g2 = image.createGraphics();
 
-            g2.setFont(g2.getFont().deriveFont(sizeOfFont* increaseIndex));
+            g2.setFont(new Font("Arial", Font.BOLD, sizeOfFont * increaseIndex));
             g2.setColor(hex2RgbColor(colorRGBA));
 
+            int heightOfText = g2.getFontMetrics().getHeight();
             int widthOfText = g2.getFontMetrics().stringWidth(textToDraw);
 
-            int h = (int) height / 3;
-            // for (int w = 0; w < width; w += 30) {
-            for (int w = 0; w < width; w += widthOfText) {
-                AffineTransform orig = g2.getTransform();
-                g2.rotate(angle * -Math.PI / 180, w, h);
-                g2.drawString(textToDraw, w, h);
-                if (h < height) {
-                    h += 50;
-                } else {
-                    h = 0;
+
+            int initX = 10 * increaseIndex;
+            int initY = heightOfText;
+
+            for (int y = initY; y < height; ) {
+                for (int x = initX; x < width; x += widthOfText + 30 * increaseIndex) {
+                    AffineTransform orig = g2.getTransform();
+                    g2.rotate(angle * -Math.PI / 180, x, y);
+                    g2.drawString(textToDraw, x, y);
+
+                    y += heightOfText + 10 * increaseIndex;
+
+                    g2.setTransform(orig);
                 }
-                g2.setTransform(orig);
             }
 
             //Decrease to orogina size
@@ -92,8 +94,6 @@ public class ImageTextDraw {
 
             ImageIO.write(image, "jpg", new File(outputDir + "/"
                     + fileEntry.getName()));
-
-
         }
 
     }
