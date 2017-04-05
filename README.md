@@ -2,7 +2,7 @@
 
 Tool for drawing text on images. 
 
-## Example
+### Example
 
 <p align="center">
    <img src="https://raw.githubusercontent.com/hummatli/java-image-decorator/master/imgs_for_readme/girl.jpg" width="400px"/>
