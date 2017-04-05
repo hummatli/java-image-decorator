@@ -16,6 +16,12 @@ public class ImageTextDraw_Main {
         String colorRGBA = "#FFFFFF33";
         int angle = Integer.valueOf(0);
 
+//        String inputDir = "imgs_for_readme1";
+//        String textToDraw = "I am lonely";
+//        int sizeOfFont = 150;
+//        String colorRGBA = "#FFFFFF33";
+//        int angle = Integer.valueOf(0);
+
 
         String outputDir = inputDir + "/decorated";
 
