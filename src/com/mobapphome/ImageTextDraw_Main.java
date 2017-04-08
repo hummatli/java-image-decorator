@@ -23,6 +23,13 @@ public class ImageTextDraw_Main {
 //        int angle = Integer.valueOf(0);
 
 
+//        String inputDir = "/myfolder/imgs";
+//        String textToDraw = "KhazarApps";
+//        int sizeOfFont = 15;
+//        String colorRGBA = "#FFFFFF44";
+//        int angle = Integer.valueOf(0);
+
+
         String outputDir = inputDir + "/decorated";
 
 
@@ -61,47 +68,38 @@ public class ImageTextDraw_Main {
 //                //image = resizeImage(orginalImage, orginalImage.getType(), width, height);
 //            }
 
-            //Increase size for good drawing
-            int increaseIndex = 6;
-            width = orginalWidth * increaseIndex;
-            height = orginalHeight * increaseIndex;
-            image = resizeImageWithHint(orginalImage, orginalImage.getType(), width, height);
-
-
             Graphics2D g2 = image.createGraphics();
 
-            g2.setFont(new Font("Arial", Font.BOLD, sizeOfFont * increaseIndex));
+            g2.setFont(new Font("Arial", Font.BOLD, sizeOfFont));
             g2.setColor(hex2RgbColor(colorRGBA));
 
             int heightOfText = g2.getFontMetrics().getHeight();
             int widthOfText = g2.getFontMetrics().stringWidth(textToDraw);
 
 
-            int initX = 10 * increaseIndex;
+            int initX = 10;
             int initY = heightOfText;
 
             for (int y = initY; y < height; ) {
-                for (int x = initX; x < width; x += widthOfText + 30 * increaseIndex) {
+                for (int x = initX; x < width; x += widthOfText + 30) {
+                    if (y == initY && x == initX) {
+                        x = width*2/3;
+                    }
                     AffineTransform orig = g2.getTransform();
                     g2.rotate(angle * -Math.PI / 180, x, y);
                     g2.drawString(textToDraw, x, y);
 
-                    y += heightOfText + 10 * increaseIndex;
+                    y += heightOfText + 10;
 
                     g2.setTransform(orig);
                 }
             }
-
-            //Decrease to orogina size
-            image = resizeImageWithHint(image, image.getType(), orginalWidth, orginalHeight);
-
 
             g2.dispose();
 
             ImageIO.write(image, "jpg", new File(outputDir + "/"
                     + fileEntry.getName()));
         }
-
     }
 
     private static BufferedImage resizeImage(BufferedImage originalImage, int type, int newWidth, int newHeight) {
